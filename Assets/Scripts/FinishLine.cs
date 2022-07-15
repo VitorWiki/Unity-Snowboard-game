@@ -8,12 +8,17 @@ public class FinishLine : MonoBehaviour
    
    [SerializeField] float tempoDelayChamadaReload = 0.5f;
    [SerializeField] ParticleSystem finishLine;
+   bool sound = true;
    void OnTriggerEnter2D(Collider2D other)
    {
-       if(other.tag == "Player")
+       if(other.tag == "Player" && sound)
        {
+            FindObjectOfType<PlayerController>().DisableControls();
             finishLine.Play();
+            GetComponent<AudioSource>().Play();
+            sound = false;
             Invoke("ReloadScene", tempoDelayChamadaReload);
+            
        }
        
    }
